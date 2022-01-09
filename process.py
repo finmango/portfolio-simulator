@@ -20,8 +20,10 @@ R['TMF'] = R['TMF'].fillna(LTTx3)
 
 # Plot comparisons between leveraged and estimated assets
 (1 + R[['UPRO']].assign(SPYx3=SPYx3).dropna()).cumprod().plot(figsize=(16,4)).legend(loc='upper left')
+plt.tight_layout()
 plt.savefig('UPRO-estimate.svg')
 (1 + R[['TMF']].assign(LTTx3=LTTx3).dropna()).cumprod().plot(figsize=(16,4)).legend(loc='upper left')
+plt.tight_laytout()
 plt.savefig('TMF-estimate.svg')
 
 # Load dividend data from CSV file
@@ -46,6 +48,7 @@ for symbol in D.columns:
   X[symbol] = R[symbol]
   X[f'{symbol} with dividends reinvested'] = D[symbol]
   (1 + X.dropna()).cumprod().plot(figsize=(16,4)).legend(loc='upper left')
+  plt.tight_layout()
   plt.savefig(f'{symbol}-dividends.svg')
 
 # Save data as CSV files
