@@ -23,7 +23,7 @@ R['TMF'] = R['TMF'].fillna(LTTx3)
 plt.tight_layout()
 plt.savefig('UPRO-estimate.svg')
 (1 + R[['TMF']].assign(LTTx3=LTTx3).dropna()).cumprod().plot(figsize=(16,4)).legend(loc='upper left')
-plt.tight_laytout()
+plt.tight_layout()
 plt.savefig('TMF-estimate.svg')
 
 # Load dividend data from CSV file
