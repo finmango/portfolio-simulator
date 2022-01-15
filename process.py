@@ -3,9 +3,6 @@ import pandas as pd
 # Read raw historical prices from CSV file
 P = pd.read_csv('data/prices.csv').set_index('Date')
 
-# Cash is a constant value
-P['CASH'] = 1
-
 # Compute daily returns from the raw prices
 R = P.diff() / P.shift(1)
 
@@ -29,6 +26,10 @@ records = []
 for date, row in R.iterrows():
   records.append(dict(Date=date, **{k: v + div.get(symbol, {}).get(date, 0) for k, v in row.to_dict().items()}))
 D = pd.DataFrame.from_records(records).set_index('Date')
+
+# Cash is a constant value
+R['CASH'] = 0
+D['CASH'] = 0
 
 # Save data as CSV files
 R.dropna(how='all').to_csv('daily-returns.csv')
